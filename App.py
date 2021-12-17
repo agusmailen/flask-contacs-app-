@@ -1,17 +1,25 @@
-from re import fullmatch
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
+#Mysql Connection
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_DB'] = 'flaskcontact'
 mysql = MySQL(app)
 
+#settings
+app.secret_key = 'mysecretkey'
+
+
 @app.route('/')
 def Index():
-    return render_template('index.html')
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM contacs')
+    data = cur.fetchall()
+    print(data)
+    return render_template('index.html', contacts = data)
 
 @app.route('/add_contact', methods=['POST'])
 def add_contact():
@@ -21,8 +29,9 @@ def add_contact():
         email = request.form['email']
         cur = mysql.connection.cursor()
         cur.execute('INSERT INTO contacs (fullname, phone, email) VALUES(%s, %s, %s)', (fullname, phone, email))
-        mysql.connection.commit()    
-        return 'received'
+        mysql.connection.commit() 
+        flash('Contact Added successfull')
+        return redirect(url_for('Index'))
     
 
 @app.route('/edit')
