@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<form action="/update/{{contact[0]}}" method="POST" >
+		<input type="text" name="fullname" placeholder="Fullname" id="" value= "{{ contact[1] }}">
+		<input type="text" name="phone" placeholder="Phone" id="" value= "{{ contact[2] }}">
+		<input type="text" name="email" placeholder="Email" id="" value= "{{ contact[3] }}">
+		<button type="submit">Save!</button>
+	</form>
+</body>
+</html>
