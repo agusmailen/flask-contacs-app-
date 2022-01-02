@@ -32,7 +32,6 @@ def add_contact():
         flash('Contact Added successfull')
         return redirect(url_for('Index'))
     
-
 @app.route('/edit/<id>')
 def edit_contact(id):
     cur = mysql.connection.cursor()
@@ -57,11 +56,6 @@ def update_contact(id):
         mysql.connection.commit()
         flash('Contact Updated Successfully')
         return redirect(url_for('Index'))
-    
-            
-
-
-
 
 @app.route('/delete/<string:id>')
 def delete_contact(id):
@@ -73,4 +67,3 @@ def delete_contact(id):
 
 if __name__ == '__main__':
 	app.run(port = 3000, debug = True)
-    
